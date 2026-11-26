@@ -189,7 +189,7 @@ The main objective of this project is to understand practical backend developmen
 
 **Manhar Zapadiya**
 
-GitHub: 
+GitHub: https://github.com/manhar98/Practical-Exam-node-js.git
 
 ---
 
