@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Articles — BlogVerse</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>📰 All Articles</h1>
+      <% if (user) { %>
+        <a href="/articles/new" class="btn btn-primary">+ New Article</a>
+      <% } %>
+    </div>
+
+    <% if (articles.length === 0) { %>
+      <div class="empty-state">
+        <h3>No articles yet!</h3>
+        <p>Be the first to write an article.</p>
+      </div>
+    <% } else { %>
+      <% articles.forEach(function(article) { %>
+        <div class="card">
+          <h2 class="card-title">
+            <a href="/articles/<%= article._id %>"><%= article.title %></a>
+          </h2>
+          <div class="card-meta">
+            <span>👤 <%= article.author ? article.author.username : 'Unknown' %></span>
+            <span>📅 <%= new Date(article.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+          </div>
+          <p class="card-content">
+            <%= article.content.length > 200 ? article.content.substring(0, 200) + '...' : article.content %>
+          </p>
+          <div class="card-actions">
+            <a href="/articles/<%= article._id %>" class="btn btn-outline btn-sm">Read More →</a>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <div class="footer">
+    <p>© 2024 BlogVerse. All rights reserved.</p>
+  </div>
+</body>
+</html>

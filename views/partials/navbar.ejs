@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <a href="/articles" class="navbar-brand">✍️ BlogVerse</a>
+
+  <div class="navbar-links">
+    <a href="/articles">All Articles</a>
+
+    <% if (user) { %>
+      <a href="/my-articles">My Articles</a>
+      <a href="/articles/new">Write Article</a>
+
+      <div class="navbar-user">
+        <span>👤 <%= user.username %></span>
+        <span class="role-badge"><%= user.role %></span>
+      </div>
+
+      <a href="/logout" class="btn-nav">Sign Out</a>
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/register" class="btn-nav">Register</a>
+    <% } %>
+  </div>
+</nav>

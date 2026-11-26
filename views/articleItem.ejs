@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= article.title %> — BlogVerse</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="card" style="margin-top: 1rem;">
+      <h1 class="card-title" style="font-size: 1.8rem;"><%= article.title %></h1>
+      <div class="card-meta">
+        <span>👤 <%= article.author ? article.author.username : 'Unknown' %></span>
+        <span>📅 <%= new Date(article.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+      </div>
+      <div class="card-content" style="white-space: pre-wrap;"><%= article.content %></div>
+
+      <% if (user && (user._id.toString() === (article.author ? article.author._id.toString() : '') || user.role === 'admin')) { %>
+        <div class="card-actions" style="margin-top: 1rem;">
+          <a href="/articles/<%= article._id %>/edit" class="btn btn-secondary btn-sm">Edit</a>
+          <form action="/articles/<%= article._id %>/delete" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this article?')">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h3>💬 Comments (<%= article.comments ? article.comments.length : 0 %>)</h3>
+
+      <% if (article.comments && article.comments.length > 0) { %>
+        <% article.comments.forEach(function(comment) { %>
+          <div class="comment">
+            <div class="comment-meta">
+              <span><strong><%= comment.author ? comment.author.username : 'Unknown' %></strong> · <%= new Date(comment.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+              <% if (user && (user._id.toString() === (comment.author ? comment.author._id.toString() : '') || user.role === 'admin')) { %>
+                <form action="/comments/<%= comment._id %>/delete" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete comment?')">🗑</button>
+                </form>
+              <% } %>
+            </div>
+            <p class="comment-text"><%= comment.text %></p>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="empty-state" style="padding: 1.5rem;">
+          <p>No comments yet. Be the first to share your thoughts!</p>
+        </div>
+      <% } %>
+
+      <% if (user) { %>
+        <form action="/articles/<%= article._id %>/comments" method="POST" class="comment-form">
+          <input type="text" name="text" placeholder="Write a comment..." required />
+          <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+      <% } else { %>
+        <div class="empty-state" style="padding: 1rem;">
+          <p><a href="/login">Login</a> to post a comment.</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2024 BlogVerse. All rights reserved.</p>
+  </div>
+</body>
+</html>

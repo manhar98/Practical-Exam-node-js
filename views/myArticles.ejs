@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Articles — BlogVerse</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>📝 My Articles</h1>
+      <a href="/articles/new" class="btn btn-primary">+ New Article</a>
+    </div>
+
+    <% if (articles.length === 0) { %>
+      <div class="empty-state">
+        <h3>You haven't written any articles yet.</h3>
+        <p>Start sharing your ideas with the world!</p>
+        <a href="/articles/new" class="btn btn-primary" style="margin-top:1rem;">Write Your First Article</a>
+      </div>
+    <% } else { %>
+      <% articles.forEach(function(article) { %>
+        <div class="card">
+          <h2 class="card-title">
+            <a href="/articles/<%= article._id %>"><%= article.title %></a>
+          </h2>
+          <div class="card-meta">
+            <span>📅 <%= new Date(article.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+          </div>
+          <p class="card-content">
+            <%= article.content.length > 200 ? article.content.substring(0, 200) + '...' : article.content %>
+          </p>
+          <div class="card-actions">
+            <a href="/articles/<%= article._id %>" class="btn btn-outline btn-sm">Read</a>
+            <a href="/articles/<%= article._id %>/edit" class="btn btn-secondary btn-sm">Edit</a>
+            <form action="/articles/<%= article._id %>/delete" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <div class="footer">
+    <p>© 2024 BlogVerse. All rights reserved.</p>
+  </div>
+</body>
+</html>
