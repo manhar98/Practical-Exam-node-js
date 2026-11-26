@@ -201,7 +201,7 @@ The main objective of this project is to understand and implement practical back
 
 **Manhar Zapadiya**
 
-- GitHub: https://github.com/manhar98
+- https://github.com/manhar98/Practical-Exam-node-js.git
 
 ---
 
