@@ -1,57 +1,46 @@
 # 📝 Blog Management System
 
-A full-stack **Blog Management System** built using Node.js, Express.js, MongoDB, Mongoose, and EJS. This project allows multiple users to register, log in, create, manage, and view blog articles with secure JWT authentication and role-based access control.
+A dynamic and responsive Blog Management System developed using **Node.js, Express.js, MongoDB, Mongoose, and EJS**. This project supports multiple users, secure JWT authentication, cookie-based login, role-based access control, and complete blog article management.
 
 ## 🚀 Features
 
-### 1. User Authentication
+### 🔐 Authentication & Authorization
 - User Registration and Login.
-- Secure password hashing.
 - JWT-based authentication.
-- JWT token stored in HTTP cookies.
+- Secure password hashing.
+- Cookie-based authentication.
 - User Logout functionality.
 - Protected routes using authentication middleware.
+- Role-Based Access Control (Admin & User).
 
-### 2. Role-Based Access Control
-- Two user roles: `Admin` and `User`.
-- Role-based route protection.
-- Admin and users have different access permissions.
-
-### 3. Blog Management (CRUD)
+### 📝 Blog Management
 - Create new blog articles.
-- View all published articles.
+- View all blog articles.
 - Update existing articles.
 - Delete articles.
 - View individual article details.
+- Manage personal articles.
 
-### 4. Multi-User Support
+### 👥 Multi-User Support
 - Multiple users can register and log in.
 - Each user can create their own articles.
-- Users can view their own articles.
-- User-specific article management.
+- View user-specific articles.
+- Article ownership management.
 
-### 5. MongoDB & Mongoose
+### 🗄️ Database Management
 - MongoDB database integration.
-- User, Article, and Comment models.
-- Mongoose schema relationships.
-- Object referencing and Population.
-- Fetch related user and article information.
+- Mongoose models and schemas.
+- User, Article, and Comment collections.
+- MongoDB relationships using ObjectId references.
+- Populate related user information.
 
-### 6. EJS Views
-- `articleList.ejs` – Display all articles.
-- `myArticles.ejs` – Display logged-in user's articles.
-- `articleForm.ejs` – Create and edit articles.
-- `articleItem.ejs` – Display individual articles.
-- `navbar.ejs` – Navigation bar.
-- `login.ejs` – User login page.
-- `register.ejs` – User registration page.
-
-### 7. Stylish & Responsive UI
-- Modern and attractive design.
+### 🎨 User Interface
+- EJS template engine.
+- Stylish and responsive design.
 - Custom CSS styling.
-- Responsive layout for mobile, tablet, and desktop.
-- Stylish navigation bar.
-- User-friendly interface.
+- Reusable Navbar partial.
+- Login and Registration pages.
+- Mobile-friendly layout.
 
 ## 🛠️ Technologies Used
 
@@ -60,85 +49,87 @@ A full-stack **Blog Management System** built using Node.js, Express.js, MongoDB
 | Node.js | Backend Runtime |
 | Express.js | Web Framework |
 | MongoDB | Database |
-| Mongoose | Database Management |
+| Mongoose | Database ODM |
 | EJS | Template Engine |
 | JWT | Authentication |
 | Cookie-parser | Cookie Management |
 | bcrypt / bcryptjs | Password Hashing |
-| CSS3 | Styling |
 | HTML5 | Page Structure |
+| CSS3 | Styling |
 
 ## 📂 Project Structure
 
 ```text
-BLOG-PROJECT/
+Practical Exam/
 │
 ├── config/
 │   └── db.js
 │
 ├── controllers/
-│   ├── authController.js
 │   ├── articleController.js
+│   ├── authController.js
 │   └── commentController.js
 │
 ├── middleware/
-│   ├── authMiddleware.js
-│   └── roleMiddleware.js
+│   └── auth.js
 │
 ├── models/
-│   ├── User.js
 │   ├── Article.js
-│   └── Comment.js
-│
-├── routes/
-│   ├── authRoutes.js
-│   ├── articleRoutes.js
-│   └── commentRoutes.js
-│
-├── views/
-│   ├── partials/
-│   │   └── navbar.ejs
-│   ├── articleList.ejs
-│   ├── myArticles.ejs
-│   ├── articleForm.ejs
-│   ├── articleItem.ejs
-│   ├── login.ejs
-│   └── register.ejs
+│   ├── Comment.js
+│   └── User.js
 │
 ├── public/
 │   └── css/
 │       └── style.css
 │
-├── .env
+├── routes/
+│   ├── articleRoutes.js
+│   ├── authRoutes.js
+│   ├── commentRoutes.js
+│   └── userRoutes.js
+│
+├── views/
+│   ├── articleForm.ejs
+│   ├── articleItem.ejs
+│   ├── articleList.ejs
+│   ├── error.ejs
+│   ├── login.ejs
+│   ├── myArticles.ejs
+│   ├── register.ejs
+│   │
+│   └── partials/
+│       └── navbar.ejs
+│
 ├── .gitignore
 ├── package.json
+├── package-lock.json
 ├── server.js
 └── README.md
 ```
 
 ## ⚙️ Installation & Setup
 
-### Step 1: Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
 ```
 
-### Step 2: Navigate to Project
+### 2. Open Project Folder
 
 ```bash
-cd BLOG-PROJECT
+cd "Practical Exam"
 ```
 
-### Step 3: Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Step 4: Configure Environment Variables
+### 4. Configure Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root folder:
 
 ```env
 PORT=3000
@@ -146,62 +137,59 @@ MONGO_URI=mongodb://127.0.0.1:27017/blogDB
 JWT_SECRET=your_secret_key
 ```
 
-### Step 5: Start MongoDB
+### 5. Start MongoDB
 
 Make sure your local MongoDB server is running.
 
-### Step 6: Run Project
+### 6. Run the Project
 
 ```bash
 npm start
 ```
 
-Or use:
+Or, if you have configured Nodemon:
 
 ```bash
 npm run dev
 ```
 
-Open your browser:
+### 7. Open in Browser
 
 ```text
 http://localhost:3000
 ```
 
-## 🔐 Authentication Flow
+## 🔑 Main Application Pages
 
-1. User registers with username and password.
-2. Password is hashed before saving.
-3. User logs in with valid credentials.
-4. Server generates a JWT token.
-5. JWT token is stored in an HTTP cookie.
-6. Authentication middleware verifies the token.
-7. Authorized users can access protected routes.
-8. Logout clears the authentication cookie.
+| Page | Description |
+|---|---|
+| Register | Create a new account |
+| Login | Login with username and password |
+| Article List | View all blog articles |
+| My Articles | View personal articles |
+| Article Form | Create or edit articles |
+| Article Item | View individual article |
+| Navbar | Navigate through the application |
+| Error Page | Display error messages |
 
-## 📌 Main Functionalities
+## 🔒 Security Features
 
-- Register and Login.
-- Logout securely.
-- Create Blog Articles.
-- Read All Articles.
-- Update and Delete Articles.
-- View My Articles.
-- Admin and User Roles.
-- JWT Authentication.
-- Cookie-Based Session Handling.
-- MongoDB Population.
-- Multi-User Article Management.
+- Password hashing before database storage.
+- JWT token verification.
+- Cookie-based authentication.
+- Authentication middleware.
+- Protected application routes.
+- Role-based authorization.
 
 ## 🎯 Project Objective
 
-The main objective of this project is to understand and implement practical backend development concepts using Node.js and Express.js, including authentication, authorization, CRUD operations, MongoDB relationships, middleware, and dynamic EJS rendering.
+The main objective of this project is to understand practical backend development using Node.js and Express.js. It demonstrates authentication, authorization, CRUD operations, MongoDB relationships, middleware, EJS rendering, and multi-user functionality.
 
 ## 👨‍💻 Developer
 
 **Manhar Zapadiya**
 
-- https://github.com/manhar98/Practical-Exam-node-js.git
+GitHub: 
 
 ---
 
